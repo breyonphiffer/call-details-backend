@@ -21,7 +21,7 @@ const key = 'a4f3b8e6-ec7c-4ff6-b54a-3c10798f58a2';
 function setCorsHeaders(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS'); // Added OPTIONS here
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, key');
 
   // 1. Check if the request is a preflight (OPTIONS method)
   if (req.method === 'OPTIONS') {

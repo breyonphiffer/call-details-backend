@@ -1,7 +1,6 @@
 // server/index.js
 const express = require('express');
 const ImageKit = require('imagekit');
-const cors = require('cors');
 require('dotenv').config()
 const app = express();
 
@@ -19,8 +18,22 @@ const users = [
 
 const key = 'a4f3b8e6-ec7c-4ff6-b54a-3c10798f58a2';
 
+function setCorsHeaders(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS'); // Added OPTIONS here
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-app.use(cors());
+  // 1. Check if the request is a preflight (OPTIONS method)
+  if (req.method === 'OPTIONS') {
+    // 2. Respond immediately with status 200 (OK) to preflight
+    return res.sendStatus(200); 
+  }
+
+  // 3. For all other requests (GET, POST, etc.), continue to the route handler
+  next();
+}
+
+app.use(setCorsHeaders);
 
 app.use(express.json());
 
